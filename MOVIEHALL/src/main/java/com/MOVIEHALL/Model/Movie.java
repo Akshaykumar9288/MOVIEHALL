@@ -1,9 +1,6 @@
 package com.MOVIEHALL.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
@@ -15,7 +12,11 @@ public class Movie {
     private Long id;
     private String title;
     private String description;
-    private int duration;
+    @Column(name = "duration_hours")
+    private int durationHours;
+    @Column(name = "duration_minutes")
+    private int durationMinutes;
+    @Column(name = "movie_date")
     private LocalDate MovieDate;
     private String country;
     private String genre;
@@ -44,12 +45,20 @@ public class Movie {
         this.description = description;
     }
 
-    public int getDuration() {
-        return duration;
+    public int getDurationHours() {
+        return durationHours;
     }
 
-    public void setDuration(int duration) {
-        this.duration = duration;
+    public void setDurationHours(int durationHours) {
+        this.durationHours = durationHours;
+    }
+
+    public int getDurationMinutes() {
+        return durationMinutes;
+    }
+
+    public void setDurationMinutes(int durationMinutes) {
+        this.durationMinutes = durationMinutes;
     }
 
     public LocalDate getMovieDate() {
@@ -76,11 +85,12 @@ public class Movie {
         this.genre = genre;
     }
 
-    public Movie(Long id, String title, String description, int duration, LocalDate movieDate, String country, String genre) {
+    public Movie(Long id, String title, String description, int durationHours, int durationMinutes, LocalDate movieDate, String country, String genre) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.duration = duration;
+        this.durationHours = durationHours;
+        this.durationMinutes = durationMinutes;
         MovieDate = movieDate;
         this.country = country;
         this.genre = genre;
@@ -94,7 +104,8 @@ public class Movie {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", duration=" + duration +
+                ", durationHours=" + durationHours +
+                ", durationMinutes=" + durationMinutes +
                 ", MovieDate=" + MovieDate +
                 ", country='" + country + '\'' +
                 ", genre='" + genre + '\'' +

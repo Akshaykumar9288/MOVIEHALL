@@ -1,22 +1,40 @@
 package com.MOVIEHALL.Model;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
+import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
+@Table(name = "show_table")
 public class Show {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate ShowDate;
+    @ManyToOne
+    @JoinColumn(name = "movie_id")
+    private Movie movie;
+    @ManyToOne
+    @JoinColumn(name = "cinema_hall_id")
+    private CinemaHall cinemaHall;
     private LocalTime ShowStartTime;
     private LocalTime ShowEntTime;
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public CinemaHall getCinemaHall() {
+        return cinemaHall;
+    }
+
+    public void setCinemaHall(CinemaHall cinemaHall) {
+        this.cinemaHall = cinemaHall;
+    }
 
     public Long getId() {
         return id;
@@ -50,9 +68,11 @@ public class Show {
         ShowEntTime = showEntTime;
     }
 
-    public Show(Long id, LocalDate showDate, LocalTime showStartTime, LocalTime showEntTime) {
+    public Show(Long id, LocalDate showDate, Movie movie, CinemaHall cinemaHall, LocalTime showStartTime, LocalTime showEntTime) {
         this.id = id;
         ShowDate = showDate;
+        this.movie = movie;
+        this.cinemaHall = cinemaHall;
         ShowStartTime = showStartTime;
         ShowEntTime = showEntTime;
     }
@@ -64,6 +84,8 @@ public class Show {
         return "Show{" +
                 "id=" + id +
                 ", ShowDate=" + ShowDate +
+                ", movie=" + movie +
+                ", cinemaHall=" + cinemaHall +
                 ", ShowStartTime=" + ShowStartTime +
                 ", ShowEntTime=" + ShowEntTime +
                 '}';

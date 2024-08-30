@@ -1,9 +1,6 @@
 package com.MOVIEHALL.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class CinemaHall {
@@ -11,7 +8,9 @@ public class CinemaHall {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
-    private String CinemaHallName;
+    @ManyToOne
+    @JoinColumn(name = "cinema_id")
+    private Cinema CinemaHallName;
     private int TotalSeats;
 
     public Long getId() {
@@ -22,11 +21,11 @@ public class CinemaHall {
         Id = id;
     }
 
-    public String getCinemaHallName() {
+    public Cinema getCinemaHallName() {
         return CinemaHallName;
     }
 
-    public void setCinemaHallName(String cinemaHallName) {
+    public void setCinemaHallName(Cinema cinemaHallName) {
         CinemaHallName = cinemaHallName;
     }
 
@@ -38,7 +37,7 @@ public class CinemaHall {
         TotalSeats = totalSeats;
     }
 
-    public CinemaHall(Long id, String cinemaHallName, int totalSeats) {
+    public CinemaHall(Long id, Cinema cinemaHallName, int totalSeats) {
         Id = id;
         CinemaHallName = cinemaHallName;
         TotalSeats = totalSeats;
@@ -50,7 +49,7 @@ public class CinemaHall {
     public String toString() {
         return "CinemaHall{" +
                 "Id=" + Id +
-                ", CinemaHallName='" + CinemaHallName + '\'' +
+                ", CinemaHallName=" + CinemaHallName +
                 ", TotalSeats=" + TotalSeats +
                 '}';
     }
